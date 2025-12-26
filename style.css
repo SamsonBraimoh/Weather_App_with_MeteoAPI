@@ -1,0 +1,58 @@
+body{
+    background-color: #03012d;
+    color: white;
+    padding: 0;
+    margin: 0;
+    font-family: "Bricolage Grotesque", sans-serif;;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+}
+.unit{
+    display: flex;
+    align-items: center;
+    background-color: #272541;
+    padding-inline: 20px;
+    padding-block: 0;
+    gap: 10px;
+    border-radius: 15px;
+    height: 40px;
+    cursor: pointer;
+}
+.heading{
+    text-align: center;
+    font-weight: 600;
+    font-size: 50px;
+}
+.search{
+    display: flex;
+    justify-content: center;
+    gap: 1%;
+}
+input{
+    background-color: #272541;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+    width: 29%;
+    height: 40px;
+    padding-inline: 1%;
+}
+input::placeholder{
+    font-weight: 550;
+    color: #fff;
+    letter-spacing: 1px;
+}
+button{
+    background-color: #4455da;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    width: 9%;
+    height: 40px;
+    cursor: pointer;
+}
