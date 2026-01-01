@@ -38,9 +38,9 @@ input{
     border-radius: 5px;
     color: white;
     outline: none;
-    width: 29%;
+    width: 100%;
     height: 40px;
-    padding-inline: 1%;
+    padding-inline: 10%;
 }
 input::placeholder{
     font-weight: 550;
@@ -55,4 +55,14 @@ button{
     width: 9%;
     height: 40px;
     cursor: pointer;
+}
+.searchInput{
+    width: 29%;
+    display: flex;
+    position: relative;
+}
+.searchInput svg {
+    position: absolute;
+    top: 30%;
+    left: 10px;
 }

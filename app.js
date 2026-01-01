@@ -1,6 +1,6 @@
 // alert("app is active");
 var greeting = "Hello World!";
-alert(greeting);
+// alert(greeting);
 
 
 const unitDropDown = document.getElementById('unitDropDown');
