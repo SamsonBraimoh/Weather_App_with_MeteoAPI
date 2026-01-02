@@ -66,3 +66,12 @@ button{
     top: 30%;
     left: 10px;
 }
+
+
+/* MOBILE */
+
+@media (max-screen: 320px){
+    .search{
+        flex-direction: column;
+    }
+}
