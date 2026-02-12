@@ -37,11 +37,137 @@
 
   <section class="search">
       <div class="searchInput">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 21 21"><path fill="#D4D3D9" d="M19.844 18.82c.195.196.195.508 0 .664l-.899.899c-.156.195-.468.195-.664 0l-4.726-4.727a.63.63 0 0 1-.117-.351v-.508c-1.446 1.21-3.282 1.953-5.313 1.953A8.119 8.119 0 0 1 0 8.625C0 4.172 3.633.5 8.125.5c4.453 0 8.125 3.672 8.125 8.125 0 2.031-.781 3.906-1.992 5.313h.508c.117 0 .234.078.351.156l4.727 4.726ZM8.125 14.875a6.243 6.243 0 0 0 6.25-6.25c0-3.438-2.813-6.25-6.25-6.25a6.243 6.243 0 0 0-6.25 6.25 6.219 6.219 0 0 0 6.25 6.25Z"/></svg>
+        <svg class="searchIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 21 21"><path fill="#D4D3D9" d="M19.844 18.82c.195.196.195.508 0 .664l-.899.899c-.156.195-.468.195-.664 0l-4.726-4.727a.63.63 0 0 1-.117-.351v-.508c-1.446 1.21-3.282 1.953-5.313 1.953A8.119 8.119 0 0 1 0 8.625C0 4.172 3.633.5 8.125.5c4.453 0 8.125 3.672 8.125 8.125 0 2.031-.781 3.906-1.992 5.313h.508c.117 0 .234.078.351.156l4.727 4.726ZM8.125 14.875a6.243 6.243 0 0 0 6.25-6.25c0-3.438-2.813-6.25-6.25-6.25a6.243 6.243 0 0 0-6.25 6.25 6.219 6.219 0 0 0 6.25 6.25Z"/></svg>
         <input type="text" placeholder="Search for a place...">
       </div>
       <button>Search</button>
   </section>
+
+  <section id="weather" class="WeatherForcast">
+      
+      <section class="main">
+        
+        <div class="BgBig">
+          <div class="">
+            <section class="location">
+              <h3>Berlin, Germany</h3>
+              <p class="date">Tuesday, Aug 5, 2025</p>
+            </section>
+            <section class="temp">
+              <img src="assets/images/icon-sunny.webp" class="weatherToday" alt="sunny">
+              <h1>70°</h1>
+            </section>
+          </div>
+        
+        </div>
+        
+        <div class="BgSmall">
+          <!-- <img src="assets/images/bg-today-small.svg" alt=""> -->
+        </div>
+        <section class="conditions">
+            <div class="tempp condition">
+              Feels Like
+              <h3>64°</h3>
+            </div>
+            <div class="humi condition">
+              Humidity
+              <h3>46%</h3>
+            </div>
+            <div class="wind condition">
+              Wind
+              <h3>9 mph</h3>
+            </div>
+            <div class="precip condition">
+              Precipitation
+              <h3>0 in</h3>
+            </div>
+        </section>
+        
+        <h5 class="dailyForcastHeading">Daily Forcast</h5>
+        
+        <section class="dailyForcast">
+            <div class="sun dayWrapper">
+              <div class="day">
+                <p>Sun</p>
+                <img src="assets/images/icon-overcast.webp" class="weatherEmoji" alt="sunny">
+                <div class="settling">
+                  <p>68°</p>
+                  <p>57°</p>
+                </div>
+            </div>
+          </div>
+            
+            <div class="mon dayWrapper">
+              <div class="day">
+                <p>Mon</p>
+                <img src="assets/images/icon-storm.webp" class="weatherEmoji" alt="sunny">
+                <div class="settling">
+                  <p>70°</p>
+                  <p>59°</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tue dayWrapper">
+              <div class="day">
+                <p>Tue</p>
+                <img src="assets/images/icon-snow.webp" class="weatherEmoji" alt="sunny">
+                <div class="settling">
+                  <p>70°</p>
+                  <p>59°</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="wed dayWrapper">
+              <div class="day">
+                <p>Wed</p>
+                <img src="assets/images/icon-rain.webp" class="weatherEmoji" alt="sunny">
+                <div class="settling">
+                  <p>70°</p>
+                  <p>59°</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="thu dayWrapper">
+              <div class="day">
+                <p>Thu</p>
+                <img src="assets/images/icon-sunny.webp" class="weatherEmoji" alt="sunny">
+                <div class="settling">
+                  <p>70°</p>
+                  <p>59°</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="fri dayWrapper">
+              <div class="day">
+                <p>Fri</p>
+                <img src="assets/images/icon-partly-cloudy.webp" class="weatherEmoji" alt="sunny">
+                <div class="settling">
+                  <p>70°</p>
+                  <p>59°</p>
+                </div>
+              </div>
+            </div>
+           
+            <div class="sat dayWrapper">
+              <div class="day">
+                <p>Sat</p>
+                <img src="assets/images/icon-fog.webp" class="weatherEmoji" alt="sunny">
+                <div class="settling">
+                  <p>70°</p>
+                  <p>59°</p>
+                </div>
+              </div>
+            </div>
+        </section>
+      </section>
+      
+      <section class="asidehourlyForcast"></section>
+    
+    </section>
 
   <!-- Units
 
