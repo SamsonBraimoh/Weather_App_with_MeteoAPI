@@ -45,7 +45,7 @@
 
   <section id="weather" class="WeatherForcast">
       
-      <section class="main">
+      <main class="main">
         
         <div class="BgBig">
           <div class="">
@@ -83,19 +83,21 @@
             </div>
         </section>
         
-        <h5 class="dailyForcastHeading">Daily Forcast</h5>
         
-        <section class="dailyForcast">
-            <div class="sun dayWrapper">
+        <section dailyForcastContainer>
+          <h3 class="dailyForcastHeading">Daily Forcast</h3>
+          <div class="dailyForcast" id="day"></div>
+          <!-- </div> -->
+            <!-- <div class="sun dayWrapper" id="day">
               <div class="day">
-                <p>Sun</p>
+                <p id="day">Sun</p>
                 <img src="assets/images/icon-overcast.webp" class="weatherEmoji" alt="sunny">
                 <div class="settling">
                   <p>68°</p>
                   <p>57°</p>
                 </div>
+              </div>
             </div>
-          </div>
             
             <div class="mon dayWrapper">
               <div class="day">
@@ -161,11 +163,28 @@
                   <p>59°</p>
                 </div>
               </div>
-            </div>
+            </div> -->
         </section>
-      </section>
+      </main>
       
-      <section class="asidehourlyForcast"></section>
+      <aside class="aside">
+        <div class="headingg">
+          <p>Hourly forecast</p>
+            <div class="unit daySelector">
+              <p>Sunday</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="8" fill="none" viewBox="0 0 13 8"><path fill="#fff" d="M6.309 7.484 1.105 2.316c-.175-.14-.175-.421 0-.597l.704-.668a.405.405 0 0 1 .597 0l4.219 4.148 4.184-4.148c.175-.176.457-.176.597 0l.703.668c.176.176.176.457 0 .597L6.906 7.484a.405.405 0 0 1-.597 0Z"/></svg>
+            </div>
+        
+        </div>
+        <div  id="hour">
+          <!-- <div class="hour">
+            <img src="assets/images/icon-fog.webp" class="weatherEmoji" alt="sunny">
+            <p>3 PM</p>
+          </div>
+          <p>20°</p> -->
+        </div>
+     
+      </aside>
     
     </section>
 

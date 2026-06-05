@@ -46,7 +46,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "none",
+    // "module": "none"
     "outDir": "./dist",
     "strict": true
   },
