@@ -56,7 +56,7 @@ const day = document.getElementById("day");
 
 const dailyForcast = dailyForcastData.map( (forecast) =>{
     return `
-        <div class="dayWrapper">
+        <div class="dayWrapper" key=${forecast.key}>
             <div class="day">
                 <p>${forecast.day}</p>
                 <img src=${forecast.weatherCondition} class="weatherEmoji" alt="sunny">
@@ -148,16 +148,24 @@ hour.innerHTML = hourlyForcast;
 //     alert("How fa")
 // })
 
-// const url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&past_days=10&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m" 
+const url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&past_days=7&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch" 
 
 
-// getData = async ()=>{
-//     const response = await fetch(url)
-//     data = await response.json();
-//     console.log(data);
+const getData =  async ()=>{
+    try {
+    const response =  await  fetch(url);
+    const data = await response.json();
+    console.log(data.current)
+    const currentTemp = document.getElementById("currentTemp");
+    currentTemp.textContent = `${data.current.temperature_2m}°`
+    } 
+    catch(err){
+        alert("Couldn't reach server");
+    }
+}
 
-// }
-// getData();
+
+getData();
 
 
 

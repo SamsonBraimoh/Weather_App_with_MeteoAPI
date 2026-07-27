@@ -76,7 +76,7 @@ button{
 }
 .WeatherForcast{
     /* border: 1px solid white; */
-    width: 80%;
+    width: 85%;
     height: 85vh;
     display: flex;
     gap: 5%;
@@ -191,6 +191,11 @@ button{
     justify-content: space-between;
     width: 90%;
     margin-top: 5%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #272541;
+    padding: 0.5rem;
 }
 .hourlyForcast{
     display: flex;
@@ -199,7 +204,7 @@ button{
     background-color: #312f4b;
     width: 90%;
     height: 50px;
-    
+    padding: 0 0.5rem;
 }
 .hour{
     display: flex;
@@ -212,7 +217,7 @@ button{
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 4%;
+    gap: 3%;
     align-items: center;
 }
 .hourlyForcast, .condition, .dayWrapper{
@@ -220,7 +225,52 @@ button{
     border: 1px solid #3d3b5e;
 }
 
-
+.unitDropDown, .dayDropdown{
+    width: 15%;
+    background-color: #272541;
+    border-radius: 10px;
+    border: 1px solid #3d3b5e;
+    padding: 0.5rem;
+    z-index: 999;
+    position: absolute;
+    left: 82%;
+    top: 10%;
+    display: none;
+}
+.unitsHeading{
+    font-size: 0.8rem;
+    color: #9d9bb0;
+    
+}
+.units{
+     display: flex; 
+     flex-direction: column;
+     gap: 10px;  
+}
+hr{
+    width: 100%;
+    border: none;
+    height: 1px;
+    background: #9d9bb0;
+}
+.unitList, .dayDropdownList{
+    padding: 0.6rem;
+    border-radius: 8px;
+}
+.selectedUnit{
+    background-color: #312f4b;
+    
+}
+.dayDropdown{
+    /* display: block; */
+    left: 75%;
+    top: 52%;
+}
+.dayDropdownContent{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
 
 /* MOBILE */
 

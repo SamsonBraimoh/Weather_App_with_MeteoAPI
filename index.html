@@ -30,8 +30,31 @@
       <p>Units</p>
       <svg xmlns="http://www.w3.org/2000/svg" width="13" height="8" fill="none" viewBox="0 0 13 8"><path fill="#fff" d="M6.309 7.484 1.105 2.316c-.175-.14-.175-.421 0-.597l.704-.668a.405.405 0 0 1 .597 0l4.219 4.148 4.184-4.148c.175-.176.457-.176.597 0l.703.668c.176.176.176.457 0 .597L6.906 7.484a.405.405 0 0 1-.597 0Z"/></svg>
     </section>
-
+    
   </header>
+  
+  <section>
+    <main class="unitDropDown">
+      <h4>Switch to Imperial</h4>
+      <div class="units">
+        <p class="unitsHeading">Temperature</p>
+        <p class="unitList selectedUnit">Celcius (°C)</p>
+        <p class="unitList selectedUnit">Fehrenheit (°F)</p>
+        <hr>
+      </div>
+      <div class="units">
+        <p class="unitsHeading">Wind Speed</p>
+        <p class="unitList selectedUnit">km/h</p>
+        <p class="unitList selectedUnit">mph</p>
+        <hr>
+      </div>
+      <div class="units">
+        <p class="unitsHeading">Precipitation</p>
+        <p class="unitList selectedUnit">Millimeters (mm)</p>
+        <p class="unitList selectedUnit">Inches (in)</p>
+      </div>
+    </main>
+  </section>
   
   <h1 class="heading">How's the sky looking today?</h1>
 
@@ -55,7 +78,7 @@
             </section>
             <section class="temp">
               <img src="assets/images/icon-sunny.webp" class="weatherToday" alt="sunny">
-              <h1>70°</h1>
+              <h1 id="currentTemp">70°</h1>
             </section>
           </div>
         
@@ -177,13 +200,19 @@
         
         </div>
         <div  id="hour">
-          <!-- <div class="hour">
-            <img src="assets/images/icon-fog.webp" class="weatherEmoji" alt="sunny">
-            <p>3 PM</p>
-          </div>
-          <p>20°</p> -->
+          
         </div>
-     
+        <section class="dayDropdown">
+           <div class= "dayDropdownContent">
+              <p class="dayDropdownList">Monday</p>
+              <p class="dayDropdownList">Tueday</p>
+              <p class="dayDropdownList">Wednesday</p>
+              <p class="dayDropdownList">Thursday</p>
+              <p class="dayDropdownList">Friday</p>
+              <p class="dayDropdownList">Saturday</p>
+              <p class="dayDropdownList">Sunday</p>
+           </div>
+        </section>
       </aside>
     
     </section>
