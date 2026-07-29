@@ -51,15 +51,48 @@ const dailyForcastData = [
         settlingTo: "59°"
     }
 ]
+const weatherIcons = {
+    0: "☀️",
+    1: "🌤️",
+    2: "⛅",
+    3: "☁️",
+    45: "🌫️",
+    48: "🌫️",
+    51: "🌦️",
+    53: "🌦️",
+    55: "🌧️",
+    56: "🌨️",
+    57: "🌨️",
+    61: "🌦️",
+    63: "🌧️",
+    65: "🌧️",
+    66: "🌨️",
+    67: "🌨️",
+    71: "❄️",
+    73: "🌨️",
+    75: "❄️",
+    77: "🌨️",
+    80: "🌦️",
+    81: "🌧️",
+    82: "⛈️",
+    85: "🌨️",
+    86: "❄️",
+    95: "⛈️",
+    96: "⛈️🧊",
+    99: "⛈️🧊"
+};
 
 const day = document.getElementById("day");
 
     const displayDailyTemp = (weatherData) => {
         const dailyForcast = weatherData.daily.time.map((date, index) =>{
+            const icons = weatherIcons[weatherData.daily.weather_code[index]]
+            console.log(icons)
             return `
                 <div class="dayWrapper">
                     <div class="day">
                         <p>${new Date(date).toLocaleDateString("en-US", { weekday: "short" })}</p>
+                        <span>${icons}</span>
                         <div class="settling">
                             <p>${weatherData.daily.temperature_2m_min[index]}</p>
                             <p>${weatherData.daily.temperature_2m_max[index]}</p>
@@ -183,7 +216,7 @@ const getData =  async ()=>{
     try {
     const response =  await  fetch(url);
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
         displayCurrentWeather(data);
         displayDailyTemp(data);
     } 
