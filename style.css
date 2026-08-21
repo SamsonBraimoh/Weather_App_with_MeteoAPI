@@ -134,22 +134,23 @@ button{
 }
 .dayWrapper{
     width: 20%;
-    /* height: 150px; */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .day{
+    width: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 .condition{
     width: 40%;
     padding: 2%;
 }
-#precipitation, #windSpeed, #humid{
+#precipitation, #windSpeed, #humid, #feelsLike{
     font-size: 1.5rem;
     font-weight: 50;
 }
@@ -157,10 +158,10 @@ button{
     width: 100px;
     height: 100px;
 }
-.weatherEmoji{
+/* .weatherEmoji{
     width: 55px;
     height: 55px;
-}
+} */
 .temp{
     display: flex;
     align-items: center;
@@ -221,7 +222,7 @@ button{
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 3%;
+    gap: 1rem;
     align-items: center;
 }
 .hourlyForcast, .condition, .dayWrapper{
@@ -239,12 +240,10 @@ button{
     position: absolute;
     left: 82%;
     top: 10%;
-    display: none;
 }
 .unitsHeading{
     font-size: 0.8rem;
     color: #9d9bb0;
-    
 }
 .units{
      display: flex; 
@@ -260,10 +259,12 @@ hr{
 .unitList, .dayDropdownList{
     padding: 0.6rem;
     border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
 }
 .selectedUnit{
     background-color: #312f4b;
-    
 }
 .dayDropdown{
     /* display: block; */
@@ -274,6 +275,10 @@ hr{
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+}
+
+.hidden{
+    display: none;
 }
 
 /* MOBILE */

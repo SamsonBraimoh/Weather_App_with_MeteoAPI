@@ -1,5 +1,76 @@
 // const unitDropDown = document.getElementById('unitDropDown');
 
+const today = document.getElementById("dateToday");
+const date = new Date();
+const formattedDate = new Intl.DateTimeFormat('en-us', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+}).format(date)
+today.textContent = formattedDate;
+
+
+// UNIT CONVERSIONS
+
+let selectedTempUnit = "fahrenheit";
+
+
+
+
+const fahrenheitToCelcius = (fahrenheit) => {
+   return (fahrenheit - 32) * 5 / 9 
+}
+
+const mphToKmh = (mph) => {
+    return mph * 1.60934
+}
+
+const inchesToMM = (inches) => {
+    return inches * 25.4
+}
+
+const convertTemperature = (temperature, unit) => {
+    if(unit === "celcius"){
+        return fahrenheitToCelcius(temperature)
+    }
+    return temperature;
+}
+
+const convertWindSpeed = (speed, unit) => {
+    if (unit === "mph"){
+        mphToKmh(speed)
+    }
+}
+
+const convertPrecipitation = (precipitation, unit) => {
+    if(unit === "inches"){
+        inchesToMM(precipitation)
+    }
+}
+
+const selectCelcius = document.getElementById("celciusSelected")
+const selectFahrenheit = document.getElementById("fahrenheitSelected")
+const ticked = document.getElementById("ticked")
+
+const tempUnitOptions = document.querySelectorAll(".temp-unit-options")
+
+
+
+const tempUnitSelecton = (weatherData)=>{
+    tempUnitOptions.forEach((options)=>{
+       options.addEventListener("click", ()=>{
+        selectedTempUnit = options.dataset.unit;
+            tempUnitOptions.forEach((item)=>{
+                item.classList.remove("selectedUnit")
+            })
+            options.classList.add("selectedUnit")
+            displayDailyTemp(weatherData)
+       })
+    })
+}
+
+
 const dailyForcastData = [
     {
         key: 1,
@@ -87,15 +158,23 @@ const day = document.getElementById("day");
     const displayDailyTemp = (weatherData) => {
         const dailyForcast = weatherData.daily.time.map((date, index) =>{
             const icons = weatherIcons[weatherData.daily.weather_code[index]]
-            console.log(icons)
+            // console.log(icons)
+                const minTemp = weatherData.daily.temperature_2m_min[index]
+                const maxTemp = weatherData.daily.temperature_2m_max[index]
+                
+                const temperature_min = convertTemperature(minTemp, selectedTempUnit)
+                const temperature_max = convertTemperature(maxTemp, selectedTempUnit)
+    
             return `
                 <div class="dayWrapper">
                     <div class="day">
                         <p>${new Date(date).toLocaleDateString("en-US", { weekday: "short" })}</p>
                         <span>${icons}</span>
                         <div class="settling">
-                            <p>${weatherData.daily.temperature_2m_min[index]}</p>
-                            <p>${weatherData.daily.temperature_2m_max[index]}</p>
+                        
+                            <p>${Math.round(temperature_min)}°</p>
+                            <p>${Math.round(temperature_max)}°</p>
+                        
                         </div>
                     </div>
                 </div>
@@ -179,53 +258,108 @@ const day = document.getElementById("day");
             temperature: "63°"
     },
 ]
+
+
 const hour = document.getElementById("hour");
-const hourlyForcast = hourlyForcastData.map((hourlyForcast)=>
-{
-    return `
-    <div class="hourlyForcast">
-        <div class="hour">
-            <img src=${hourlyForcast.weatherConditionImage} class="weatherEmoji" alt="sunny">
-            <p>${hourlyForcast.timeInHour}</p>
-        </div>
-        <p>${hourlyForcast.temperature}</p>
-    </div>
-    `
+
+const displayHourlyTemp = (weatherData)=>{
+    const hourlyForToday = weatherData.hourly.time.slice(0, 24);
+    const hourlyForcast = hourlyForToday.map((time, index)=>{
+        const icons = weatherIcons[weatherData.hourly.weather_code[index]]
+        return  `
+                <div class="hourlyForcast">
+                    <div class="hour">
+                        <span>${icons}</span>
+                        <p>${new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: true }).format(new Date(time))}</p>
+                    </div>
+                    <p>${Math.round(weatherData.hourly.temperature_2m[index])}°</p>
+                </div>
+                `       
+    }).join("");
+    
+    hour.innerHTML = hourlyForcast;
+
 }
-).join("");
-hour.innerHTML = hourlyForcast;
+
+
+// const hourlyForcast = hourlyForcastData.map((hourlyForcast)=>
+// {
+//     return `
+//     <div class="hourlyForcast">
+//         <div class="hour">
+//             <img src=${hourlyForcast.weatherConditionImage} class="weatherEmoji" alt="sunny">
+//             <p>${hourlyForcast.timeInHour}</p>
+//         </div>
+//         <p>${hourlyForcast.temperature}</p>
+//     </div>
+//     `
+// }
+// ).join("");
+// hour.innerHTML = hourlyForcast;
 
 // unitDropDown.addEventListener("click", ()=>{
 //     alert("How fa")
 // })
 
-const url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,weather_code&hourly=temperature_2m&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,weather_code&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch" 
 
 const displayCurrentWeather = (data) => {
     const currentTemp = document.getElementById("currentTemp");
     const humid = document.getElementById("humid");
     const windSpeed = document.getElementById("windSpeed")
     const precipitation = document.getElementById("precipitation")
-    currentTemp.textContent = `${data.current.temperature_2m}°`
-    windSpeed.textContent  = `${data.current.wind_speed_10m} mph`
+    const feelsLike = document.getElementById("feelsLike")
+    currentTemp.textContent = `${Math.round(data.current.temperature_2m)}°`
+    feelsLike.textContent = `${Math.round(data.current.apparent_temperature)}°`
+    windSpeed.textContent  = `${Math.round(data.current.wind_speed_10m)} mph`
     precipitation.textContent = `${data.current.precipitation} in`
     humid.textContent = `${data.current.relative_humidity_2m}%`
 }
 
-const getData =  async ()=>{
-    try {
+const getData =  async (latitude, longitude)=>{
+    // celcius--> https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,apparent_temperature&wind_speed_unit=mph&precipitation_unit=inch
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,apparent_temperature&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch` 
+        try {
     const response =  await  fetch(url);
     const data = await response.json();
-    // console.log(data)
+    console.log(data)
         displayCurrentWeather(data);
         displayDailyTemp(data);
+        displayHourlyTemp(data);
+        tempUnitSelecton(data)
     } 
     catch(err){
         alert("Couldn't reach server");
     }
 }
 
-getData();
+const cityName = document.getElementById("city");
+const getCityName = async (latitude, longitude)=>{
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+    try{
+        const response = await fetch(url);
+        const data = await response.json()
+        console.log(data);
+        cityName.textContent = `${data.address.county}, ${data.address.country}`        
+    }
+    catch(err){
+        alert("couldn't reach reverse-geocoding server")
+    }
+}
 
-
+navigator.geolocation.getCurrentPosition(
+    (position)=>{
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        getData(latitude, longitude)
+        getCityName(latitude, longitude)
+    },
+    (error)=>{
+        console.log(error)
+    }
+);
+const unitDropDown = document.getElementById("unitDropDown")
+const unit = document.getElementById("unit")
+unitDropDown.addEventListener("click", ()=>{
+    unit.classList.remove("hidden")
+})
 

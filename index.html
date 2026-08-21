@@ -34,24 +34,24 @@
   </header>
   
   <section>
-    <main class="unitDropDown">
+    <main class="unitDropDown hidden" id="unit">
       <h4>Switch to Imperial</h4>
       <div class="units">
         <p class="unitsHeading">Temperature</p>
-        <p class="unitList selectedUnit">Celcius (°C)</p>
-        <p class="unitList selectedUnit">Fehrenheit (°F)</p>
+        <div id = "celciusSelected" class="unitList temp-unit-options" data-unit="celcius"><p  id="celcius">Celcius (°C)</p><span  class="hidden"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" fill="none" viewBox="0 0 14 11"><path fill="#fff" d="M11.895 1.047c.136-.137.355-.137.464 0l.793.766c.11.136.11.355 0 .464L4.95 10.48a.315.315 0 0 1-.465 0L.82 6.844c-.11-.137-.11-.356 0-.465l.793-.793c.11-.11.328-.11.465 0l2.625 2.652 7.192-7.191Z"/></svg></span></div>
+        <div id="fahrenheitSelected" class="unitList selectedUnit temp-unit-options" data-unit="fahrenheit"><p id="fahrenheit">Fehrenheit (°F)</p><span  id="ticked"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" fill="none" viewBox="0 0 14 11"><path fill="#fff" d="M11.895 1.047c.136-.137.355-.137.464 0l.793.766c.11.136.11.355 0 .464L4.95 10.48a.315.315 0 0 1-.465 0L.82 6.844c-.11-.137-.11-.356 0-.465l.793-.793c.11-.11.328-.11.465 0l2.625 2.652 7.192-7.191Z"/></svg></span></div>
         <hr>
       </div>
       <div class="units">
         <p class="unitsHeading">Wind Speed</p>
-        <p class="unitList selectedUnit">km/h</p>
-        <p class="unitList selectedUnit">mph</p>
+        <div class="unitList wind-unit-option" data-unit="km/h"><p >km/h</p><span class="hidden"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" fill="none" viewBox="0 0 14 11"><path fill="#fff" d="M11.895 1.047c.136-.137.355-.137.464 0l.793.766c.11.136.11.355 0 .464L4.95 10.48a.315.315 0 0 1-.465 0L.82 6.844c-.11-.137-.11-.356 0-.465l.793-.793c.11-.11.328-.11.465 0l2.625 2.652 7.192-7.191Z"/></svg></span></div>
+        <div class="unitList wind-unit-option" data-unit="mph"><p >mph</p><span class="hidden"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" fill="none" viewBox="0 0 14 11"><path fill="#fff" d="M11.895 1.047c.136-.137.355-.137.464 0l.793.766c.11.136.11.355 0 .464L4.95 10.48a.315.315 0 0 1-.465 0L.82 6.844c-.11-.137-.11-.356 0-.465l.793-.793c.11-.11.328-.11.465 0l2.625 2.652 7.192-7.191Z"/></svg></span></div>
         <hr>
       </div>
       <div class="units">
         <p class="unitsHeading">Precipitation</p>
-        <p class="unitList selectedUnit">Millimeters (mm)</p>
-        <p class="unitList selectedUnit">Inches (in)</p>
+        <div class="unitList precip-unit-option" data-unit="millimeters"><p >Millimeters (mm)</p><span class="hidden"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" fill="none" viewBox="0 0 14 11"><path fill="#fff" d="M11.895 1.047c.136-.137.355-.137.464 0l.793.766c.11.136.11.355 0 .464L4.95 10.48a.315.315 0 0 1-.465 0L.82 6.844c-.11-.137-.11-.356 0-.465l.793-.793c.11-.11.328-.11.465 0l2.625 2.652 7.192-7.191Z"/></svg></span></div>
+        <div class="unitList precip-unit-option" data-unit="inches"><p >Inches (in)</p><span class="hidden"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" fill="none" viewBox="0 0 14 11"><path fill="#fff" d="M11.895 1.047c.136-.137.355-.137.464 0l.793.766c.11.136.11.355 0 .464L4.95 10.48a.315.315 0 0 1-.465 0L.82 6.844c-.11-.137-.11-.356 0-.465l.793-.793c.11-.11.328-.11.465 0l2.625 2.652 7.192-7.191Z"/></svg></span></div>
       </div>
     </main>
   </section>
@@ -73,8 +73,8 @@
         <div class="BgBig">
           <div class="">
             <section class="location">
-              <h3>Berlin, Germany</h3>
-              <p class="date">Tuesday, Aug 5, 2025</p>
+              <h3 id="city">Berlin, Germany</h3>
+              <p class="date" id="dateToday">Tuesday, Aug 5, 2025</p>
             </section>
             <section class="temp">
               <img src="assets/images/icon-sunny.webp" class="weatherToday" alt="sunny">
@@ -90,7 +90,7 @@
         <section class="conditions">
             <div class="tempp condition">
               Feels Like
-              <h3>64°</h3>
+              <h3 id="feelsLike">64°</h3>
             </div>
             <div class="humi condition">
               Humidity
@@ -110,7 +110,7 @@
         <section dailyForcastContainer>
           <h3 class="dailyForcastHeading">Daily Forcast</h3>
           <div class="dailyForcast" id="day"></div>
-          <!-- </div> -->
+          <!-- <div> -->
             <!-- <div class="sun dayWrapper" id="day">
               <div class="day">
                 <p id="day">Sun</p>
@@ -202,7 +202,7 @@
         <div  id="hour">
           
         </div>
-        <section class="dayDropdown">
+        <section class="dayDropdown hidden">
            <div class= "dayDropdownContent">
               <p class="dayDropdownList">Monday</p>
               <p class="dayDropdownList">Tueday</p>
