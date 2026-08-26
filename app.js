@@ -14,7 +14,8 @@ today.textContent = formattedDate;
 // UNIT CONVERSIONS
 
 let selectedTempUnit = "fahrenheit";
-
+let selectedWindUnit = "mph";
+let selectedPrecipUnit = "inches"
 
 
 
@@ -38,15 +39,17 @@ const convertTemperature = (temperature, unit) => {
 }
 
 const convertWindSpeed = (speed, unit) => {
-    if (unit === "mph"){
-        mphToKmh(speed)
+    if (unit === "km/h"){
+        return  mphToKmh(speed)
     }
+    return speed;
 }
 
 const convertPrecipitation = (precipitation, unit) => {
-    if(unit === "inches"){
-        inchesToMM(precipitation)
+    if(unit === "millimeters"){
+       return inchesToMM(precipitation)
     }
+    return precipitation
 }
 
 const selectCelcius = document.getElementById("celciusSelected")
@@ -56,18 +59,46 @@ const ticked = document.getElementById("ticked")
 const tempUnitOptions = document.querySelectorAll(".temp-unit-options")
 
 
-
-const tempUnitSelecton = (weatherData)=>{
-    tempUnitOptions.forEach((options)=>{
-       options.addEventListener("click", ()=>{
-        selectedTempUnit = options.dataset.unit;
-            tempUnitOptions.forEach((item)=>{
+const handleUnitSelection = (options, callback)=>{
+    options.forEach((option)=>{
+        option.addEventListener("click", () => {
+            options.forEach((item)=>{
                 item.classList.remove("selectedUnit")
+                item.querySelector(".ticked")?.classList.add("hidden");
             })
-            options.classList.add("selectedUnit")
-            displayDailyTemp(weatherData)
-       })
+            option.classList.add("selectedUnit")
+            const tick = option.querySelector(".ticked");
+            tick?.classList.remove("hidden");
+            callback(option.dataset.unit)
+        })
     })
+}
+
+const tempUnitSelection = (weatherData)=>{
+        handleUnitSelection(tempUnitOptions, (unit)=>{
+            selectedTempUnit = unit;
+            displayDailyTemp(weatherData);
+            displayHourlyTemp(weatherData);
+            displayCurrentWeather(weatherData);
+        });
+}
+
+const windSpeedUnitOptions = document.querySelectorAll(".wind-unit-option")
+
+const windSpeedSelectionUnit = (weatherData) =>{
+            handleUnitSelection(windSpeedUnitOptions, (unit)=>{
+                selectedWindUnit = unit;
+                displayCurrentWeather(weatherData);
+            })
+}
+
+const precipitationUnitOptions = document.querySelectorAll(".precip-unit-option")
+
+const precipitationUnitSelection = (weatherData) => {
+            handleUnitSelection(precipitationUnitOptions, (unit)=>{
+                selectedPrecipUnit = unit;
+                displayCurrentWeather(weatherData);
+            })
 }
 
 
@@ -158,7 +189,7 @@ const day = document.getElementById("day");
     const displayDailyTemp = (weatherData) => {
         const dailyForcast = weatherData.daily.time.map((date, index) =>{
             const icons = weatherIcons[weatherData.daily.weather_code[index]]
-            // console.log(icons)
+            
                 const minTemp = weatherData.daily.temperature_2m_min[index]
                 const maxTemp = weatherData.daily.temperature_2m_max[index]
                 
@@ -266,13 +297,18 @@ const displayHourlyTemp = (weatherData)=>{
     const hourlyForToday = weatherData.hourly.time.slice(0, 24);
     const hourlyForcast = hourlyForToday.map((time, index)=>{
         const icons = weatherIcons[weatherData.hourly.weather_code[index]]
+
+                const temp = weatherData.hourly.temperature_2m[index]
+                               
+                const hourlyTemp = convertTemperature(temp, selectedTempUnit)
+                
         return  `
                 <div class="hourlyForcast">
                     <div class="hour">
                         <span>${icons}</span>
                         <p>${new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: true }).format(new Date(time))}</p>
                     </div>
-                    <p>${Math.round(weatherData.hourly.temperature_2m[index])}°</p>
+                    <p>${Math.round(hourlyTemp)}°</p>
                 </div>
                 `       
     }).join("");
@@ -308,10 +344,23 @@ const displayCurrentWeather = (data) => {
     const windSpeed = document.getElementById("windSpeed")
     const precipitation = document.getElementById("precipitation")
     const feelsLike = document.getElementById("feelsLike")
-    currentTemp.textContent = `${Math.round(data.current.temperature_2m)}°`
-    feelsLike.textContent = `${Math.round(data.current.apparent_temperature)}°`
-    windSpeed.textContent  = `${Math.round(data.current.wind_speed_10m)} mph`
-    precipitation.textContent = `${data.current.precipitation} in`
+
+   const temp = data.current.temperature_2m;
+   const tempNow = convertTemperature(temp, selectedTempUnit);
+   const tempFeelsLike = data.current.apparent_temperature;
+   const tempNowFeelsLike = convertTemperature(tempFeelsLike, selectedTempUnit)
+   currentTemp.textContent = `${Math.round(tempNow)}°`
+   feelsLike.textContent = `${Math.round(tempNowFeelsLike)}°`
+
+   const wind = data.current.wind_speed_10m;
+   const windNow = convertWindSpeed(wind, selectedWindUnit)
+   const windUnitLabel = selectedWindUnit === "km/h" ? "km/h" : "mph";
+   windSpeed.textContent  = `${Math.round(windNow)} ${windUnitLabel}`
+
+   const precip = data.current.precipitation
+   const precipNow = convertPrecipitation(precip, selectedPrecipUnit)
+   const precipUnitLabel = selectedPrecipUnit === "millimeters" ? "mm" : "in"
+    precipitation.textContent = `${precipNow} ${precipUnitLabel}`
     humid.textContent = `${data.current.relative_humidity_2m}%`
 }
 
@@ -325,7 +374,9 @@ const getData =  async (latitude, longitude)=>{
         displayCurrentWeather(data);
         displayDailyTemp(data);
         displayHourlyTemp(data);
-        tempUnitSelecton(data)
+        tempUnitSelection(data);
+        windSpeedSelectionUnit(data);
+        precipitationUnitSelection(data);
     } 
     catch(err){
         alert("Couldn't reach server");
