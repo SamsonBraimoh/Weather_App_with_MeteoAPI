@@ -69,6 +69,7 @@ button{
     display: flex;
     position: relative;
 }
+
 .searchInput .searchIcon {
     position: absolute;
     top: 30%;

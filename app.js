@@ -414,3 +414,26 @@ unitDropDown.addEventListener("click", ()=>{
     unit.classList.remove("hidden")
 })
 
+const searchInput = document.getElementById("searchForm");
+searchInput.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const formData = new FormData(searchInput);
+    const data = Object.fromEntries(formData)
+    console.log(data);
+})
+
+const citySearch = async()=>{
+    const url = 'https://nominatim.openstreetmap.org/search?q=Abuja&format=json'
+    try{
+        const CityCord = await fetch(url);
+        const data = await CityCord.json()
+        console.log(data)
+        const cityLat = data[0].lat
+        const cityLon = data[0].lon
+        console.log(`Latitude = ${cityLat} and Longitude = ${cityLon}`)
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+citySearch();
